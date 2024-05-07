@@ -47,7 +47,7 @@ async def create_payment_1(call: CallbackQuery, bot: Bot, state: FSMContext):
         td = timedelta(days=31)
         d = datetime.strptime(check[1][0], '%Y-%m-%d').date()
         expire_date = date.fromisoformat(str(d+td)).strftime("%d of %B %Y, %A")
-        image = FSInputFile(f'/home/topg/langbot/langbot-repo/data/{theme}/subscription.png')
+        image = FSInputFile(f'./data/{theme}/subscription.png')
         day = date.fromisoformat(str(d)).strftime("%d of %B %Y, %A")
         if day[0] == '0':
             day = day[1:]
@@ -135,7 +135,7 @@ async def create_payment_2(call: CallbackQuery, bot: Bot, state: FSMContext):
     
     msg = f'enjoy the upgraded powers⚡️'
     theme = await db_settings_get_theme(call.from_user.id)
-    image = FSInputFile(f'/home/topg/langbot/langbot-repo/data/{theme}/successful_payment.png')
+    image = FSInputFile(f'./data/{theme}/successful_payment.png')
     await call.message.answer_photo(
         image,
         caption=msg
@@ -162,7 +162,7 @@ async def create_payment_2(call: CallbackQuery, bot: Bot, state: FSMContext):
         text='are you ready for a miracle?'
     )
     sleep(1)
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/main_menu.png")
+    image = FSInputFile(f"./data/{theme}/main_menu.png")
     await call.message.answer_photo(
         image,
         # caption=f"you are in main menu ⚡️",
@@ -206,7 +206,7 @@ async def process_successful_payment(message: Message, state: FSMContext):
         await db_update_pro(checkpoint, message.from_user.id)
         print('сейчас придет письмо')
         msg = f'вы оплатили подписку на сумму {message.successful_payment.total_amount / 100} р.'
-        image = FSInputFile(f'/home/topg/langbot/langbot-repo/data/{theme}/successful_payment.png')
+        image = FSInputFile(f'./data/{theme}/successful_payment.png')
         await message.answer_photo(
             image,
             caption=msg

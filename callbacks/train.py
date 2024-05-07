@@ -37,9 +37,9 @@ async def train(call: CallbackQuery, callback_data: builders.TrainThroughLang, s
     if training == 'fill_blank' or training == 'match':
         flag = False
     else:
-        flag = os.path.exists(f'/home/topg/langbot/langbot-repo/data/userdata/dict_{call.from_user.id}.xlsx')
+        flag = os.path.exists(f'./data/userdata/dict_{call.from_user.id}.xlsx')
 
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/choose_lang.png")
+    image = FSInputFile(f"./data/{theme}/choose_lang.png")
     input_image = InputMediaPhoto(media=image)
 
     await call.message.edit_media(
@@ -60,11 +60,11 @@ async def train(call: CallbackQuery, callback_data: builders.ActionLang, state: 
 
     training = callback_data.action
 
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/choose_lang.png")
+    image = FSInputFile(f"./data/{theme}/choose_lang.png")
     input_image = InputMediaPhoto(media=image)
 
     # через state бкдем подгружать путь до словаря
-    path = f'/home/topg/langbot/langbot-repo/data/userdata/dict_{call.from_user.id}.xlsx'
+    path = f'./data/userdata/dict_{call.from_user.id}.xlsx'
     await state.set_state(Path.path)
     await state.update_data(path=path)
 
@@ -89,10 +89,10 @@ async def eng_to_rus(call: CallbackQuery, callback_data: builders.ActionLang, st
     if callback_data.lang.endswith('_base'):
         # await state.set_state(Path.path)
         # await state.update_data(path='./data/words.xlsx')
-        path='/home/topg/langbot/langbot-repo/secret/words.xlsx'
-        image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/packs.png")
+        path='./secret/words.xlsx'
+        image = FSInputFile(f"./data/{theme}/packs.png")
     else:
-        image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/your_dict.png")
+        image = FSInputFile(f"./data/{theme}/your_dict.png")
 
     await state.set_state(Path.sheet)
     await state.update_data(sheet=callback_data.lang)
@@ -128,10 +128,10 @@ async def rus_to_eng(call: CallbackQuery, callback_data: builders.ActionLang, st
     if callback_data.lang.endswith('_base'):
         # await state.set_state(Path.path)
         # await state.update_data(path='./data/words.xlsx')
-        path='/home/topg/langbot/langbot-repo/secret/words.xlsx'
-        image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/packs.png")
+        path='./secret/words.xlsx'
+        image = FSInputFile(f"./data/{theme}/packs.png")
     else:
-        image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/your_dict.png")
+        image = FSInputFile(f"./data/{theme}/your_dict.png")
 
     await state.set_state(Path.sheet)
     await state.update_data(sheet=callback_data.lang)
@@ -169,10 +169,10 @@ async def start_training(call: CallbackQuery, callback_data: builders.ActionLang
     if callback_data.lang.endswith('_base'):
         # await state.set_state(Path.path)
         # await state.update_data(path='./data/words.xlsx')
-        path='/home/topg/langbot/langbot-repo/secret/words.xlsx'
-        image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/packs.png")
+        path='./secret/words.xlsx'
+        image = FSInputFile(f"./data/{theme}/packs.png")
     else:
-        image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/your_dict.png")
+        image = FSInputFile(f"./data/{theme}/your_dict.png")
 
     await state.set_state(Path.sheet)
     await state.update_data(sheet=callback_data.lang)
@@ -243,15 +243,15 @@ async def start_training(call: CallbackQuery, callback_data: inline.Subscriber):
 @router.message(F.document)
 async def receive_xlsx(message: Message, bot: Bot):
     file = message.document
-    await bot.download(file, "/home/topg/langbot/langbot-repo/data/userdata/file_from_user.xlsx")
-    df = pd.read_excel("/home/topg/langbot/langbot-repo/data/userdata/file_from_user.xlsx")
+    await bot.download(file, "./data/userdata/file_from_user.xlsx")
+    df = pd.read_excel("./data/userdata/file_from_user.xlsx")
     try:
         global dfr
         dfr = pd.DataFrame(df)
 
         if await db_does_dict_exists(message.from_user.id):
             excel_reader = pd.ExcelFile(
-                f'/home/topg/langbot/langbot-repo/data/userdata/dict_{message.from_user.id}.xlsx')
+                f'./data/userdata/dict_{message.from_user.id}.xlsx')
             langs = excel_reader.sheet_names
             txt_for_lang_btns = []
             for i in langs:
@@ -290,13 +290,13 @@ async def receive_lang_call(call: CallbackQuery):
     lang = call.data.split(':')[1].strip('_lang_call')
     print(lang)
     global dfr
-    if os.path.exists(f'/home/topg/langbot/langbot-repo/data/userdata/dict_{call.from_user.id}.xlsx'):
+    if os.path.exists(f'./data/userdata/dict_{call.from_user.id}.xlsx'):
         dfr.to_excel(
-            f'/home/topg/langbot/langbot-repo/data/userdata/dict_{call.from_user.id}.xlsx',
+            f'./data/userdata/dict_{call.from_user.id}.xlsx',
             sheet_name=f'{lang}'
         )
     else:
-        with open(f'/home/topg/langbot/langbot-repo/data/userdata/dict_{call.from_user.id}.xlsx', "x") as file:
+        with open(f'./data/userdata/dict_{call.from_user.id}.xlsx', "x") as file:
             dfr.to_excel(
                 file,
                 sheet_name=f'{lang}'
@@ -323,7 +323,7 @@ async def add_new_lang(message: Message):
     print(lang)
     global dfr
     dfr.to_excel(
-        f'/home/topg/langbot/langbot-repo/data/userdata/dict_{message.from_user.id}.xlsx',
+        f'./data/userdata/dict_{message.from_user.id}.xlsx',
         sheet_name=f'{lang}', index=None
     )
     await message.answer(
@@ -351,7 +351,7 @@ async def start_training(call: CallbackQuery, state: FSMContext):
         await state.set_state(Dictionary.ddata)
         await state.update_data(ddata=data)
         print('>>>>>>>>>>', data)
-        path = f'/home/topg/langbot/langbot-repo/data/userdata/cambridge_dict_{call.from_user.id}.xlsx'
+        path = f'./data/userdata/cambridge_dict_{call.from_user.id}.xlsx'
         await ms.edit_text(
             text=msg,
             reply_markup=builders.random_kb(path, data)
@@ -367,7 +367,7 @@ async def start_training(call: CallbackQuery, state: FSMContext):
 async def start_training(call: CallbackQuery, callback_data: builders.DataTransferActionObject, state: FSMContext):
     # data = callback_data.data
 
-    path = f'/home/topg/langbot/langbot-repo/data/userdata/cambridge_dict_{call.from_user.id}.xlsx'
+    path = f'./data/userdata/cambridge_dict_{call.from_user.id}.xlsx'
     await state.set_state(Dictionary.ddata)
     d = await state.get_data()
     data = list(d.values())
@@ -383,7 +383,7 @@ async def start_training(call: CallbackQuery, callback_data: builders.DataTransf
 
 @router.callback_query(builders.DataTransferActionObject.filter(F.action == "unsave_cambridge"))
 async def start_training(call: CallbackQuery, callback_data: builders.DataTransferActionObject, state: FSMContext):
-    path = f'/home/topg/langbot/langbot-repo/data/userdata/cambridge_dict_{call.from_user.id}.xlsx'
+    path = f'./data/userdata/cambridge_dict_{call.from_user.id}.xlsx'
     await state.set_state(Dictionary.ddata)
     d = await state.get_data()
     data = list(d.values())
@@ -415,7 +415,7 @@ async def start_training(call: CallbackQuery, state: FSMContext):
             text='searching for a word again...',
             reply_markup=builders.try_again()
         )
-    path = f'/home/topg/langbot/langbot-repo/data/userdata/cambridge_dict_{call.from_user.id}.xlsx'
+    path = f'./data/userdata/cambridge_dict_{call.from_user.id}.xlsx'
     print('❤️')
     resourse = cambridge_dict_find_word()
     msg, data = resourse[0], resourse[1]
@@ -433,7 +433,7 @@ async def start_training(call: CallbackQuery, state: FSMContext):
 @router.callback_query(builders.TrainThroughLang.filter(F.train == "dictionary"))
 async def start_training(call: CallbackQuery):
     await call.message.delete()
-    path = f'/home/topg/langbot/langbot-repo/data/userdata/cambridge_dict_{call.from_user.id}.xlsx'
+    path = f'./data/userdata/cambridge_dict_{call.from_user.id}.xlsx'
     # await state.set_state(Dictionary.cambridge_word_number)
     data = await cambridge_dict_iterator(path, call.from_user.id)
     msg = f"<b>{data[0]}</b> <i>({data[1]})</i> – {data[2]}\n" \
@@ -448,7 +448,7 @@ async def start_training(call: CallbackQuery):
 
 @router.callback_query(builders.UserCommand.filter(F.action == "next_word"))
 async def next_word_func(call: CallbackQuery):
-    path = f'/home/topg/langbot/langbot-repo/data/userdata/cambridge_dict_{call.from_user.id}.xlsx'
+    path = f'./data/userdata/cambridge_dict_{call.from_user.id}.xlsx'
     # await state.set_state(Dictionary.cambridge_word_number)
     data = await cambridge_dict_iterator(path, call.from_user.id)
     msg = f"<b>{data[0]}</b> <i>({data[1]})</i> – {data[2]}\n" \

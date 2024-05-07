@@ -41,7 +41,7 @@ async def support_1(call: CallbackQuery, state: FSMContext):
     theme = await db_settings_get_theme(call.from_user.id)
 
     await state.set_state(SupportStateClass.msg)
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/support.png")
+    image = FSInputFile(f"./data/{theme}/support.png")
     input_image = InputMediaPhoto(media=image)
     await call.message.edit_media(
         input_image
@@ -59,7 +59,7 @@ async def support_1(call: CallbackQuery, state: FSMContext):
     # theme = set_data[0]
     theme = await db_settings_get_theme(call.from_user.id)
 
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/msg_support.png")
+    image = FSInputFile(f"./data/{theme}/msg_support.png")
     input_image = InputMediaPhoto(media=image)
     await call.message.edit_media(
         input_image
@@ -79,10 +79,10 @@ async def support_1(message: Message, state: FSMContext):
     #     text=f'{message.text}\n\n{message.from_user.id}'
     # )
 
-    wb = openpyxl.load_workbook('/home/topg/langbot/langbot-repo/secret/support.xlsx')
+    wb = openpyxl.load_workbook('./secret/support.xlsx')
     sheet = wb.active
     sheet.append([message.from_user.id, message.from_user.username, message.text, datetime.now()])
-    wb.save('/home/topg/langbot/langbot-repo/secret/support.xlsx')
+    wb.save('./secret/support.xlsx')
 
     await message.answer(
         text='ваше сообщение отправлено в поддержку. вам придет уведомление, когда оно будет обработано',

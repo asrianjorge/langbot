@@ -41,7 +41,7 @@ async def start(message: Message):
         theme = await db_settings_get_theme(message.from_user.id)
 
         # create message
-        image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/new_member.png")
+        image = FSInputFile(f"./data/{theme}/new_member.png")
         # await state.set_state(Form.is_registered)
         # await state.update_data(is_registered='True')
         await message.answer_photo(
@@ -107,7 +107,7 @@ async def main_menu(message: Message):
     # theme = tt[0]
 
     # create photo of message
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/main_menu.png")
+    image = FSInputFile(f"./data/{theme}/main_menu.png")
 
     # create message
     f = await db_check_pro(user_id)
@@ -141,7 +141,7 @@ async def main_menu_call_1(call: CallbackQuery):
     theme = await db_settings_get_theme(call.from_user.id)
 
     # create photo of message
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/main_menu.png")
+    image = FSInputFile(f"./data/{theme}/main_menu.png")
     input_image = InputMediaPhoto(media=image)
 
     # create message
@@ -178,7 +178,7 @@ async def main_menu_call_2(call: CallbackQuery, state: FSMContext):
     theme = await db_settings_get_theme(call.from_user.id)
 
     # create photo of message
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/main_menu.png")
+    image = FSInputFile(f"./data/{theme}/main_menu.png")
     input_image = InputMediaPhoto(media=image)
 
     # create message
@@ -216,7 +216,7 @@ async def main_menu_call_3(call: CallbackQuery, state: FSMContext):
     theme = await db_settings_get_theme(call.from_user.id)
 
     # create photo of message
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/main_menu.png")
+    image = FSInputFile(f"./data/{theme}/main_menu.png")
     input_image = InputMediaPhoto(media=image)
 
     # create message
@@ -249,7 +249,7 @@ async def main_menu_call_4(call: CallbackQuery):
     theme = await db_settings_get_theme(call.from_user.id)
 
     # create photo of message
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/main_menu.png")
+    image = FSInputFile(f"./data/{theme}/main_menu.png")
     input_image = InputMediaPhoto(media=image)
 
     # create message
@@ -282,7 +282,7 @@ async def main_menu_call_5(call: CallbackQuery, state: FSMContext):
     theme = await db_settings_get_theme(call.from_user.id)
 
     # create photo of message
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/main_menu.png")
+    image = FSInputFile(f"./data/{theme}/main_menu.png")
     input_image = InputMediaPhoto(media=image)
 
     # create message
@@ -315,7 +315,7 @@ async def main_menu_call_6(call: CallbackQuery, state: FSMContext):
     theme = await db_settings_get_theme(call.from_user.id)
 
     # create photo of message
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/main_menu.png")
+    image = FSInputFile(f"./data/{theme}/main_menu.png")
     input_image = InputMediaPhoto(media=image)
 
     # create message

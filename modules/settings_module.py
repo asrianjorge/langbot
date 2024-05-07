@@ -24,7 +24,7 @@ async def settings_handler(call: CallbackQuery, state: FSMContext):
     # theme = set_data[0]
     theme = await db_settings_get_theme(call.from_user.id)
 
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/settings.png")
+    image = FSInputFile(f"./data/{theme}/settings.png")
     input_image = InputMediaPhoto(media=image)
     await call.message.edit_media(
         input_image,
@@ -43,7 +43,7 @@ async def themes_handler(call: CallbackQuery, state: FSMContext):
     # theme = set_data[0]
     theme = await db_settings_get_theme(call.from_user.id)
 
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}.png")
+    image = FSInputFile(f"./data/{theme}.png")
     input_image = InputMediaPhoto(media=image)
     await call.message.edit_media(
         input_image,
@@ -68,7 +68,7 @@ async def themes_handler(call: CallbackQuery, state: FSMContext):
     print(call.message.from_user.id)
     await db_settings_update_theme(call.from_user.id, theme)
 
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}.png")
+    image = FSInputFile(f"./data/{theme}.png")
     input_image = InputMediaPhoto(media=image)
     await call.message.edit_media(
         input_image,
@@ -83,7 +83,7 @@ async def themes_handler(call: CallbackQuery, state: FSMContext):
     print(call.message.from_user.id)
     await db_settings_update_theme(call.from_user.id, theme)
 
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}.png")
+    image = FSInputFile(f"./data/{theme}.png")
     input_image = InputMediaPhoto(media=image)
     await call.message.edit_media(
         input_image,
@@ -97,7 +97,7 @@ async def themes_handler(call: CallbackQuery, state: FSMContext):
 
     await db_settings_update_theme(call.from_user.id, theme)
 
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}.png")
+    image = FSInputFile(f"./data/{theme}.png")
     input_image = InputMediaPhoto(media=image)
 
     await call.message.edit_media(

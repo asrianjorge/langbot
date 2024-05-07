@@ -2,7 +2,7 @@ import sqlite3 as sq
 from datetime import date, timedelta, datetime
 from typing import Any
 
-db = sq.connect('/home/topg/langbot/langbot-repo/utils/langBotDatabase.db')
+db = sq.connect('./utils/langBotDatabase.db')
 cursor = db.cursor()
 
 

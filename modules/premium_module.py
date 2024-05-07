@@ -40,7 +40,7 @@ async def packs_handler(call: CallbackQuery, callback_data: inline.UserCommand):
     # set_data = await db_settings_get_data(call.from_user.id)
     # theme = set_data[0]
     theme = await db_settings_get_theme(call.from_user.id)
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/pro_features.png")
+    image = FSInputFile(f"./data/{theme}/pro_features.png")
     input_image = InputMediaPhoto(media=image)
     await call.message.edit_media(
         media=input_image,
@@ -54,7 +54,7 @@ async def packs_handler(call: CallbackQuery, callback_data: inline.UserCommand):
     # set_data = await db_settings_get_data(call.from_user.id)
     # theme = set_data[0]
     theme = await db_settings_get_theme(call.from_user.id)
-    image = FSInputFile(f"/home/topg/langbot/langbot-repo/data/{theme}/how_it_works.png")
+    image = FSInputFile(f"./data/{theme}/how_it_works.png")
     input_image = InputMediaPhoto(media=image)
     await call.message.edit_media(
         media=input_image,

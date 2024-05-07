@@ -107,7 +107,7 @@ async def form_goal_esp(call: CallbackQuery, state: FSMContext):
     formatted_text = []
     [formatted_text.append(f"{key}: {value}") for key, value in data.items()]
     print(formatted_text)
-    photo_file_id = FSInputFile("/home/topg/langbot/langbot-repo/data/new_member.png")
+    photo_file_id = FSInputFile("./data/new_member.png")
     await call.message.answer_photo(
         photo_file_id,
         caption="\n".join(formatted_text),
